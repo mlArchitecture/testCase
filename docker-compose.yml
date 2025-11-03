@@ -1,0 +1,29 @@
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo_container
+    ports:
+      - "27017:27017"
+    networks:
+      - silu_net
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: .
+     
+    container_name: testapp
+    ports:
+      - "5000:3000"
+    volumes:
+      - .:/testapp    # mounts current folder into container
+    depends_on:
+      - mongo
+    networks:
+      - silu_net
+volumes:
+  mongo_data:
+networks:
+  silu_net:
+    driver: bridge

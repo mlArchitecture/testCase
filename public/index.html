@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function submit() {
+            const inputs = document.getElementsByTagName('input');
+            const name = inputs[0].value;
+            const rollno = inputs[1].value;
+            
+            console.log("Name:", name);
+            console.log("Rollno:", rollno);
+
+            // Send data using Axios
+            axios.post('http://localhost:3000/api/submit', {
+                name: name,
+                rollno: rollno
+            })
+            .then(response => {
+                console.log('Success:', response.data);
+                alert('Data submitted successfully!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to submit data');
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <input type="text" placeholder="Enter your name" />
+        <input type="text" placeholder="Rollno" />
+        <button onclick="submit()">Submit</button>
+    </div>
+</body>
+</html>
